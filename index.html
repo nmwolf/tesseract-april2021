@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>WIDH_NYCDH_2021</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Tesseract-OCR-Augst-April2021</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14260,7 +14260,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><img align="right" width="300" src="https://data-services.hosting.nyu.edu/assets/libraries_short_color.png" alt="NYU Libraries Logo"><br/><br/></p>
-<h1 id="Build-Your-Own-Text-as-Data-Corpus:-A-Print-to-Bytes-Primer">Build Your Own Text-as-Data Corpus: A Print-to-Bytes Primer<a class="anchor-link" href="#Build-Your-Own-Text-as-Data-Corpus:-A-Print-to-Bytes-Primer">&#182;</a></h1><h3 id="WIDH@NYCDH-2021"><a href="https://wp.nyu.edu/widh">WIDH@NYCDH 2021</a><a class="anchor-link" href="#WIDH@NYCDH-2021">&#182;</a></h3><p><strong>Nicholas Wolf</strong><br/>
+<h1 id="Introduction-to-OCR-and-Tesseract-Software">Introduction to OCR and Tesseract Software<a class="anchor-link" href="#Introduction-to-OCR-and-Tesseract-Software">&#182;</a></h1><p><strong>Nicholas Wolf</strong><br/>
 <a href="https://orcid.org/0000-0001-5512-6151">ORCID 0000-0001-5512-6151</a></p>
 <p>This lesson is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
 <h3 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h3><p>This session is dedicated to exploring the tricks and tools available to build a workflow that turns digital images of text into computer-readable text. Its focus is on skills needed for an individual who is trying to bring together a corpus of texts for the purposes of text analysis, a website, a Digital Humanities project, or a small-scale digital library.</p>
@@ -14269,27 +14269,35 @@ a.anchor-link {
 <li>Review a few options for making the digital capture of a text.</li>
 <li>Walk through some solutions for bulk transformation of image file types into formats that are OCR-ready</li>
 <li>Take a look at using Tesseract 4 for OCR, using a few different languages as examples</li>
-<li>Examine the HOCR output structure</li>
-<li>[OPTIONAL] Open hour to talk through Tesseract 4 installation and Tesseract's training manual</li>
+<li>[TIME PERMITTING]Examine the HOCR output structure</li>
 </ul>
-<h3 id="OCR-Options-and-Tesseract-4">OCR Options and Tesseract 4<a class="anchor-link" href="#OCR-Options-and-Tesseract-4">&#182;</a></h3><p>There are increasingly more options for turning bitmap images of texts into computer-readable text. Even out-of-the-box document scanning tools will try for this, and Adobe's DC Reader, if prompted to attempt to read a text, will do pretty well in making a text out of an image. Not all of these will succeed on a broad range of languages, fonts, or document qualities, however, and many are designed for very modern texts in order to make documents accessible for screen readers.</p>
-<p>From a pedagogical standpoint, ABBYY Finereader is a far better tool for teaching OCR (and especially training one)  because of its graphical interface. But in an all-remote teaching environment ABBYY Finereader is not ideal because it requires a paid license and optimally runs on Windows (the Mac version is not very good). So for this session we need an open-source alternative.</p>
-<p>Tesseract, while much more difficult to use, is a really robust OCR tool with support for 4500 fonts and <a href="https://github.com/tesseract-ocr/tessdata">~130 languages</a>, trained on 400k lines of text. It is also free, thus more suitable for session participants to install. But training the latest Tesseract 4 is a challenge in a way it was not for Tesseract 3 or ABBYY. A 4-core configuration is recommended to accommodate an LSTM machine learning approach, and its instruction materials are largely oriented around a Linux environment. Hence, the lesson below cannot viably focus on how to train Tesseract 4 on new fonts or languages. Instead, we'll reserve time at the end of the session to share stories.</p>
-<h3 id="Materials">Materials<a class="anchor-link" href="#Materials">&#182;</a></h3><p>You can participate in this lesson in any of the following ways subject to whether you want to install any of the software, the ability of your local system to run that software, and if installed, whether you want to work within a Jupyter Notebook environment or not:</p>
-<ul>
-<li>Feel free to just follow along and try installing the software later. The website is here: <a href="https://nmwolf.gitlab.io/widh-nycdh-2021">https://nmwolf.gitlab.io/widh-nycdh-2021</a></li>
-<li>Install Tesseract 4 and run the examples outside of this notebook.</li>
-<li>Install Tesseract 4 and Jupyter Notebook with Python 3 and run the examples live.</li>
-</ul>
-<p>The files are available for download on GitLab: <a href="https://gitlab.com/nmwolf/widh-nycdh-2021">https://gitlab.com/nmwolf/widh-nycdh-2021</a> (or <code>git clone https://gitlab.com/nmwolf/widh-nycdh-2021.git</code></p>
-<p>A reminder that installation help is available at <a href="https://bit.ly/widh-2021-bytes">https://bit.ly/widh-2021-bytes</a>.</p>
+<p>While much more difficult to use than another option, ABBYY FineReader, Tesseract is a really robust OCR tool with support for 4500 fonts and <a href="https://github.com/tesseract-ocr/tessdata">~130 languages</a>, trained on 400k lines of text.</p>
+<p>If you want to give Tesseract a try, here are some ideas on how to install it:</p>
+<p><strong>Mac OS</strong></p>
+<p>Use the Homebrew install utility:</p>
+<p>Instructions for how to install Homebrew is available on the Homebrew homepage. From a Mac Terminal prompt, copy and paste this line and hit enter:</p>
+<p><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></p>
+<p>After Homebrew is installed, run:</p>
+<p><code>brew install tesseract</code></p>
+<p>Next install the full set of languages:</p>
+<p><code>brew install tesseract-lang</code></p>
+<p>Test to see if you are ready to go:</p>
+<p><code>tesseract -v</code></p>
+<p>If it shows you have some version of Tesseract 4 installed, that’s a good sign.</p>
+<p><strong>Windows</strong></p>
+<p>Over the years the University of Mannheim has maintained a stable and reliable distribution of Tesseract for Windows. See this very recent <a href="https://medium.com/quantrium-tech/installing-and-using-tesseract-4-on-windows-10-4f7930313f82">walkthrough of installing via this write-up by Bharath Sivakumar and published on Medium</a>.</p>
+<p>The steps are:</p>
+<p>Visit this <a href="https://digi.bib.uni-mannheim.de/tesseract/">University of Mannheim distribution page</a> and download the version called <a href="http://tesseract-ocr-w64-setup-v4.1.0.20190314.exe">tesseract-ocr-w64-setup-v4.1.0.20190314.exe</a>. This one is for 64-bit processors (most Windows machines). If you have an older machine, you may need <a href="https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w32-setup-v4.1.0.20190314.exe">tesseract-ocr-w32-setup-v4.1.0.20190314.exe</a>. If you don’t know if you have a 32- or 64-bit, check out <a href="https://support.microsoft.com/en-us/windows/32-bit-and-64-bit-windows-frequently-asked-questions-c6ca9541-8dce-4d48-0415-94a3faa2e13d">this help article</a> on detecting which version you have.</p>
+<p>To test success of installation, open a Windows cmd prompt and type:</p>
+<p><code>tesseract -v</code></p>
+<p>If it shows you have some version of Tesseract 4 installed, you should be set.</p>
 <h3 id="Sample-Files">Sample Files<a class="anchor-link" href="#Sample-Files">&#182;</a></h3><p>You are encouraged to use your own texts when walking through the steps below. If you don't have one, consider downloading one of these:</p>
 <ul>
-<li>Title pages and first page of a printed account of the sentencing of Claudio Feliú Fontanills for impersonation, 1862, in Spanish, digitized book held by the Library of Congress. Record at <a href="https://hdl.loc.gov/loc.law/llhsp.2018682655">https://hdl.loc.gov/loc.law/llhsp.2018682655</a>. Filenames fontanills-1862-1.jpg, fontanills-1862-2.jpg, fontanills-1862-3.jpg.</li>
-<li>Single typescript page from a Works Progress Administration oral-history project, an interview of Vincent Violai D'Atr, 1938. Digital image provided by Library of Congress. Record at <a href="https://www.loc.gov/item/wpalh001634">https://www.loc.gov/item/wpalh001634</a>. Filename wpa-lifehistory-swenson-1938.tif.</li>
+<li>Title pages and first page of a printed account of the sentencing of Claudio Feliú Fontanills for impersonation, 1862, in Spanish, digitized book held by the Library of Congress. Record at <a href="https://hdl.loc.gov/loc.law/llhsp.2018682655">https://hdl.loc.gov/loc.law/llhsp.2018682655</a>. Filenames <a href="https://drive.google.com/file/d/1lvf_jxTgRVelGz2lekr56r4E68gGeGIv/view?usp=sharing">fontanills-1862-1.jpg</a>, <a href="https://drive.google.com/file/d/1mHGPoK7WI2qinbDMWK9loQ7EBnluAczA/view?usp=sharing">fontanills-1862-2.jpg</a>, <a href="https://drive.google.com/file/d/1mOQFnQTmk_KDrVTyYUBCzV2AU0ejXk58/view?usp=sharing">fontanills-1862-3.jpg</a>.</li>
+<li>Single typescript page from a Works Progress Administration oral-history project, an interview of Vincent Violai D'Atr, 1938. Digital image provided by Library of Congress. Record at <a href="https://www.loc.gov/item/wpalh001634">https://www.loc.gov/item/wpalh001634</a>. Filename <a href="https://drive.google.com/file/d/1mc25VNMJfn61ARjyR92ostqsi58lnaOb/view?usp=sharing">wpa-lifehistory-swenson-1938.tif</a>.</li>
 </ul>
 <h3 id="Don't-Have-Tesseract-but-Want-To-Try-It-on-Your-File?">Don't Have Tesseract but Want To Try It on Your File?<a class="anchor-link" href="#Don't-Have-Tesseract-but-Want-To-Try-It-on-Your-File?">&#182;</a></h3><p>Upload a single image file, using a distinct filename (such as one made from your name) and a hyphen along with the <a href="https://www.loc.gov/standards/iso639-2/php/code_list.php">three-letter language code</a>. I'll try doing a bulk OCR operation at the break:</p>
-<p><a href="https://drive.google.com/drive/folders/1aW7VAVc4cL_IqcpNrPa-Jkr1baWIyvlc?usp=sharing">Upload Folder</a></p>
+<p><a href="https://drive.google.com/drive/folders/1rcPtRP8jsiCZR7dQAste0l76yedLdRgc?usp=sharing">Upload Folder</a></p>
 <p>Example:</p>
 <p>LASTNAME-eng.jpg</p>
 <p>Please use PNG, JPG, or TIF formats only.</p>
@@ -14298,13 +14306,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="1.-Step-1:-Breakout-and-Share-Out-about-Your-Project/Images">1. Step 1: Breakout and Share Out about Your Project/Images<a class="anchor-link" href="#1.-Step-1:-Breakout-and-Share-Out-about-Your-Project/Images">&#182;</a></h2><p>We'll hop into breakout rooms briefly to get to know each other and talk about what type of digital corpus we are trying to construct.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="2.-First-Things:-When-Do-You-Need-OCR?">2. First Things: When Do You Need OCR?<a class="anchor-link" href="#2.-First-Things:-When-Do-You-Need-OCR?">&#182;</a></h2><p>Or rather, when do you not need OCR? An image file that contains embedded encoded text or a PDF that presents encoded text and not a bitmap image of text, does not need to be subject to OCR to turn it into the text needed for search or analysis. In most PDF readers such as Adobe DC, you can open such a PDF and select the option to export it to plain text, HTML, or another format:</p>
+<h2 id="1.-First-Things:-When-Do-You-Need-OCR?">1. First Things: When Do You Need OCR?<a class="anchor-link" href="#1.-First-Things:-When-Do-You-Need-OCR?">&#182;</a></h2><p>Or rather, when do you not need OCR? An image file that contains embedded encoded text or a PDF that presents encoded text and not a bitmap image of text, does not need to be subject to OCR to turn it into the text needed for search or analysis. In most PDF readers such as Adobe DC, you can open such a PDF and select the option to export it to plain text, HTML, or another format:</p>
 <p><img align="left" width="400" src="dc-reader-export.png" alt="Image showing how to download a PDF as text using Adobve DC Reader via the top dropdown menu"></p>
 
 </div>
@@ -14318,7 +14320,7 @@ a.anchor-link {
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span>%%bash
@@ -14362,7 +14364,7 @@ Preamble Whereas recognition of the inherent dignity and of the equal and inalie
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span>%%bash
@@ -14400,7 +14402,7 @@ pdftotext pdf-arabic-example.pdf - <span class="p">|</span> head -n <span class=
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="3.-Image-Capture">3. Image Capture<a class="anchor-link" href="#3.-Image-Capture">&#182;</a></h2><p>A comparison matrix of some ways to scan texts on your phone from my <a href="https://guides.nyu.edu/c.php?g=823477&amp;p=5914830">ABBYY online lesson</a>:</p>
+<h2 id="2.-Image-Capture">2. Image Capture<a class="anchor-link" href="#2.-Image-Capture">&#182;</a></h2><p>A comparison matrix of some ways to scan texts on your phone from my <a href="https://guides.nyu.edu/c.php?g=823477&amp;p=5914830">ABBYY online lesson</a>:</p>
 <table class="table table-bordered" style="border: 1px solid rgb(221, 221, 221);" summary="List of iPhone &amp; Android apps that allow for you to scan documents directly from your phone.">
     <colgroup>
         <col width="130" />
@@ -14633,7 +14635,7 @@ pdftotext pdf-arabic-example.pdf - <span class="p">|</span> head -n <span class=
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="4.-Image-Preprocessing">4. Image Preprocessing<a class="anchor-link" href="#4.-Image-Preprocessing">&#182;</a></h2><p>Typical steps include:</p>
+<h2 id="3.-Image-Preprocessing">3. Image Preprocessing<a class="anchor-link" href="#3.-Image-Preprocessing">&#182;</a></h2><p>Typical steps include:</p>
 <ul>
 <li>Apply grayscale (remove color from image)</li>
 <li>Binarization (reduce all pixels to black or white)</li>
@@ -14647,13 +14649,13 @@ pdftotext pdf-arabic-example.pdf - <span class="p">|</span> head -n <span class=
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="5.-Basic-OCR-with-Tesseract">5. Basic OCR with Tesseract<a class="anchor-link" href="#5.-Basic-OCR-with-Tesseract">&#182;</a></h2><p>Basic usage, English language, plain text output:</p>
+<h2 id="4.-Basic-OCR-with-Tesseract">4. Basic OCR with Tesseract<a class="anchor-link" href="#4.-Basic-OCR-with-Tesseract">&#182;</a></h2><p>Basic usage, English language, plain text output:</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span>%%bash
@@ -14691,7 +14693,7 @@ Page 1
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="5.1-Language-Parameter">5.1 Language Parameter<a class="anchor-link" href="#5.1-Language-Parameter">&#182;</a></h3><p>Adding the <code>-l</code> flag allows you to explicitly state the language or languages using the 
+<h3 id="Language-Parameter">Language Parameter<a class="anchor-link" href="#Language-Parameter">&#182;</a></h3><p>Adding the <code>-l</code> flag allows you to explicitly state the language or languages using the 
 ISO 639-2 three-digit language codes. For example:</p>
 <p><code>-l spa</code></p>
 <p>or</p>
@@ -14702,7 +14704,7 @@ ISO 639-2 three-digit language codes. For example:</p>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span>%%bash
@@ -14741,20 +14743,25 @@ Estimating resolution as 384
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="5.2-Page-Segmentation">5.2 Page Segmentation<a class="anchor-link" href="#5.2-Page-Segmentation">&#182;</a></h3><p>State explicitly how to segment the file being, i.e. whether it is a page of text, a column of text, a single character, etc. OSD is Orientation and Script Detection</p>
-<p>Example:</p>
-<p><code>tesseract INPUTFILE OUTPUTFILE --psm 1</code></p>
+<h3 id="Let's-take-a-look-at-your-files....">Let's take a look at your files....<a class="anchor-link" href="#Let's-take-a-look-at-your-files....">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="5.-Tesseract-for-Hundreds,-Thousands,-Millions-of-Files...">5. Tesseract for Hundreds, Thousands, Millions of Files...<a class="anchor-link" href="#5.-Tesseract-for-Hundreds,-Thousands,-Millions-of-Files...">&#182;</a></h2><p>One of the real payoffs in using Tesseract is the ease with which bundles of PNG, JPG, and TIFF files can be converted:</p>
+<p>From within the directory of files, in this case jpg files, 
+we instruct Tesseract to run OCR on all files that end with the .jpg extension, removing the .jpg extension and naming the output file after the original file name.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span>%%bash
 
-tesseract --help-psm
+<span class="k">for</span> page in *.jpg<span class="p">;</span> <span class="k">do</span> tesseract <span class="nv">$page</span> <span class="si">${</span><span class="nv">page</span><span class="p">/.jpg/</span><span class="si">}</span><span class="p">;</span> <span class="k">done</span>
 </pre></div>
 
      </div>
@@ -14773,23 +14780,18 @@ tesseract --help-psm
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Page segmentation modes:
-  0    Orientation and script detection (OSD) only.
-  1    Automatic page segmentation with OSD.
-  2    Automatic page segmentation, but no OSD, or OCR. (not implemented)
-  3    Fully automatic page segmentation, but no OSD. (Default)
-  4    Assume a single column of text of variable sizes.
-  5    Assume a single uniform block of vertically aligned text.
-  6    Assume a single uniform block of text.
-  7    Treat the image as a single text line.
-  8    Treat the image as a single word.
-  9    Treat the image as a single word in a circle.
- 10    Treat the image as a single character.
- 11    Sparse text. Find as much text as possible in no particular order.
- 12    Sparse text with OSD.
- 13    Raw line. Treat the image as a single text line,
-       bypassing hacks that are Tesseract-specific.
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>Tesseract Open Source OCR Engine v4.1.1 with Leptonica
+Warning: Invalid resolution 0 dpi. Using 70 instead.
+Estimating resolution as 581
+Image too small to scale!! (2x36 vs min width of 3)
+Line cannot be recognized!!
+Tesseract Open Source OCR Engine v4.1.1 with Leptonica
+Warning: Invalid resolution 0 dpi. Using 70 instead.
+Estimating resolution as 678
+Tesseract Open Source OCR Engine v4.1.1 with Leptonica
+Warning: Invalid resolution 0 dpi. Using 70 instead.
+Estimating resolution as 384
 </pre>
 </div>
 </div>
@@ -14801,86 +14803,7 @@ tesseract --help-psm
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="5.3-OEM-(Important)">5.3 OEM (Important)<a class="anchor-link" href="#5.3-OEM-(Important)">&#182;</a></h3><p>The latest Tesseract (v 4, and a beta v 5) have two different engines. The older is a classic OCR predictive approach, the one implemented in Tesseract 3 and ealier. The other is an unsupervised machine learning approach (the characteristics, and thereby the identity) of the characters are inferred from repeated investigation of their characteristics (the LSTM model).</p>
-<p>It is my understanding that the default behavior for Tesseract 4 is a combination of classic and LSTM, based on the notion that the default is to use all engines for which training data has been installed, and if the default for current installation is for both types of training data to be included, it would follow that oem = 2 is the expected base behavior. See options listed below.</p>
-<p>See this <a href="https://github.com/tesseract-ocr/tesseract/issues/1604">2018 discussion of default oem settings on Stack Overflow</a>.</p>
-<p>Example:</p>
-<p><code>tesseract INPUTFILE OUTPUTFILE --oem 1</code></p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[54]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span>%%bash
-
-tesseract --help-oem
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>OCR Engine modes:
-  0    Legacy engine only.
-  1    Neural nets LSTM engine only.
-  2    Legacy + LSTM engines.
-  3    Default, based on what is available.
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="6.-Tesseract-for-Hundreds,-Thousands,-Millions-of-Files...">6. Tesseract for Hundreds, Thousands, Millions of Files...<a class="anchor-link" href="#6.-Tesseract-for-Hundreds,-Thousands,-Millions-of-Files...">&#182;</a></h2><p>One of the real payofs in using Tesseract is the ease with which bundles of PNG, JPG, and TIFF files can be converted:</p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># From within the directory of files, in this case jpg files, </span>
-<span class="c1"># we instruct Tesseract to run OCR on all files that end with the .jpg extension,</span>
-<span class="c1"># removing the .jpg extension and naming the output file after the original file name.</span>
-
-<span class="o">%%</span><span class="k">bash</span>
-
-for page in *.jpg
-    do tesseract $page ${page/.jpg/} 
-done
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="7.-The-HOCR-Output">7. The HOCR Output<a class="anchor-link" href="#7.-The-HOCR-Output">&#182;</a></h2><p>An HOCR file is an HTML-based means of describing an OCRd output matched to a single page/document. An outline of the specs are here: <a href="http://kba.cloud/hocr-spec/1.2/">http://kba.cloud/hocr-spec/1.2/</a></p>
+<h2 id="6.-The-HOCR-Output">6. The HOCR Output<a class="anchor-link" href="#6.-The-HOCR-Output">&#182;</a></h2><p>An HOCR file is an HTML-based means of describing an OCRd output matched to a single page/document. An outline of the specs are here: <a href="http://kba.cloud/hocr-spec/1.2/">http://kba.cloud/hocr-spec/1.2/</a></p>
 <p>In particular, let's focus on the BBOX property: <a href="http://kba.cloud/hocr-spec/1.2/#bbox">http://kba.cloud/hocr-spec/1.2/#bbox</a></p>
 <p><img align="left" width="600" src="http://kba.cloud/hocr-spec/images/bbox-crop.png" alt="A depiction of how an HOCR file treats the x and y offsets of a bounding box surrounding a section of text"></p>
 
@@ -14894,7 +14817,7 @@ done
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span>%%bash
@@ -14967,7 +14890,7 @@ Page 1
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -15030,7 +14953,7 @@ Page 1
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[55]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
 
 
 
@@ -15052,7 +14975,7 @@ Page 1
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[56]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">imagebuilder</span><span class="p">(</span><span class="n">np_array</span><span class="p">,</span> <span class="s1">&#39;wpa-lifehistory-swenson-1938.tif&#39;</span><span class="p">)</span>
@@ -15107,15 +15030,6 @@ Page 1
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>But...Tesseract can get bounding boxess wrong, and that throws things off:</p>
 <p><img align="left" width="600" src="146.56750609.88c618c0-5293-0134-1278-00505686a51c.jpeg" alt="An example of a digital image for which OCR has not drawn the bounding boxes so as to recognize columns"></p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="8.-Last-Thoughts">8. Last Thoughts<a class="anchor-link" href="#8.-Last-Thoughts">&#182;</a></h2><ul>
-<li>We'll do a follow-up share on challenges with our outputs</li>
-<li>Open hours...</li>
-</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
